@@ -36,14 +36,16 @@ app.post("/", (req, res) => {
   let { x, y } = req.body
   console.log(x)
   console.log(y)
-  x = Number(x)
-  y = Number(y)
   console.log(x)
   console.log(y)
   const opt = ["addition", "subtraction", "multiplication"]
-  if (!operation_type || !x || !y ) {
+  if (!operation_type || !x || !y) {
     return res.status(400).json({ "error": "You need to provide the correct information"})
   }
+  if (typeof x === "string" || typeof y === "string") {
+    return res.status(400).json({ "error": "x and y must be a number or integer datatype NOT string"})
+  }
+
   if (!opt.includes(operation_type)) {
     return res.status(400).json({ "error": "Enter a valid operation"})
   }
